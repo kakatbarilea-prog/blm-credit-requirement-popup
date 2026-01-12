@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BLM - Request New Matter Warning</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+  :root{
+    --navy:#0F2D56;
+    --navyHover:#0c2343;
+    --gold:#B98000;
+    --muted:#6B7280;
+    --border:#E5E7EB;
+    --soft:#F5F7FB;
+  }
+
+  body{
+    margin:0;
+    background:#ffffff;
+    font-family: Calibri, Arial, sans-serif;
+    color: var(--navy);
+  }
+
+  /* Center stage */
+  .center-wrap{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 24px;
+  }
+
+  /* BLM-style button (matches your earlier request button styling) */
+  .request-btn{
+    background: var(--navy);
+    color: white;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .request-btn:hover{ background: var(--navyHover); }
+
+  /* Overlay */
+  .overlay{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(2px);
+    z-index: 99999;
+    padding: 18px;
+  }
+
+  /* Popup */
+  .popup{
+    width: 620px;
+    max-width: 100%;
+    background:#fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 45px rgba(0,0,0,0.25);
+    overflow:hidden;
+  }
+
+  /* Header */
+  .popup-header{
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap: 12px;
+  }
+
+  .popup-title{
+    margin:0;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--navy);
+  }
+
+  .popup-close{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid #d7dce6;
+    background: #f6f7fb;
+    color:#666;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:18px;
+    flex-shrink:0;
+  }
+  .popup-close:hover{ background:#eef1f6; }
+
+  /* Body */
+  .popup-body{
+    padding: 18px 22px 8px 22px;
+  }
+
+  .alert{
+    display:flex;
+    gap: 12px;
+    align-items:flex-start;
+    padding: 14px 14px;
+    border-radius: 14px;
+    background:#fffaf1;
+    border: 1px solid rgba(185,128,0,0.30);
+    margin-bottom: 14px;
+  }
+
+  .alert i{
+    margin-top:2px;
+    font-size:18px;
+    color: var(--gold);
+  }
+
+  .alert b{
+    display:block;
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+
+  .alert p{
+    margin:0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height:1.45;
+  }
+
+  .soft-upsell{
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+    padding: 0 2px 10px 2px;
+  }
+
+  .soft-upsell b{
+    color: var(--navy);
+  }
+
+  /* Footer buttons */
+  .popup-footer{
+    padding: 14px 22px 18px 22px;
+    display:flex;
+    justify-content:flex-end;
+    gap: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn{
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor:pointer;
+    border:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+  }
+
+  .btn-secondary{
+    background:#fff;
+    color: var(--navy);
+    border: 1px solid #cfd6e2;
+  }
+  .btn-secondary:hover{ background:#f3f6fb; }
+
+  .btn-primary{
+    background: var(--navy);
+    color:#fff;
+  }
+  .btn-primary:hover{ background: var(--navyHover); }
+
+</style>
+</head>
+
+<body>
+
+<div class="center-wrap">
+  <button class="request-btn" onclick="openWarning()">
+    <i class="fa fa-plus"></i> Request New Matter
+  </button>
+</div>
+
+<!-- WARNING POPUP -->
+<div class="overlay" id="warningOverlay" onclick="closeWarning()">
+  <div class="popup" onclick="event.stopPropagation()">
+
+    <div class="popup-header">
+      <div>
+        <h3 class="popup-title">CREDIT REQUIREMENT NOTICE</h3>
+      </div>
+      <div class="popup-close" onclick="closeWarning()">×</div>
+    </div>
+
+    <div class="popup-body">
+
+      <div class="alert">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <div>
+          <b>On the Free Level, legal services are billed at standard hourly rates.</b>
+          <p>You can still submit a matter request, but attorney review and work begins only when billing or credits are in place.</p>
+        </div>
+      </div>
+
+    
+
+    </div>
+
+    <div class="popup-footer">
+      <button class="btn btn-secondary" onclick="closeWarning()">Upgrade your plan</button>
+      <button class="btn btn-primary" onclick="submitMatterDemo()">
+        Continue
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function openWarning(){
+    document.getElementById("warningOverlay").style.display = "flex";
+  }
+
+  function closeWarning(){
+    document.getElementById("warningOverlay").style.display = "none";
+  }
+
+  function submitMatterDemo(){
+    // Demo behavior: just close popup
+    closeWarning();
+    alert("open-request-new-matter");
+  }
+</script>
+
+</body>
+</html>
