@@ -187,6 +187,19 @@
     color:#fff;
   }
   .btn-primary:hover{ background: var(--navyHover); }
+.mute-option{
+  margin-right:auto;
+  font-size:13px;
+  color: var(--muted);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+}
+
+.mute-option input{
+  cursor:pointer;
+}
 
 </style>
 </head>
@@ -225,6 +238,11 @@
     </div>
 
     <div class="popup-footer">
+  <label class="mute-option">
+    <input type="checkbox" id="muteWarningCheckbox">
+    Don’t show this again
+  </label>
+
       <button class="btn btn-secondary" onclick="closeWarning()">Upgrade your plan</button>
       <button class="btn btn-primary" onclick="submitMatterDemo()">
         Continue
@@ -234,15 +252,24 @@
 
   </div>
 </div>
-
 <script>
   function openWarning(){
+    if(localStorage.getItem("muteCreditWarning") === "true"){
+      submitMatterDemo();
+      return;
+    }
     document.getElementById("warningOverlay").style.display = "flex";
   }
 
+
   function closeWarning(){
-    document.getElementById("warningOverlay").style.display = "none";
+  const checkbox = document.getElementById("muteWarningCheckbox");
+  if(checkbox && checkbox.checked){
+    localStorage.setItem("muteCreditWarning", "true");
   }
+  document.getElementById("warningOverlay").style.display = "none";
+}
+
 
   function submitMatterDemo(){
     // Demo behavior: just close popup
